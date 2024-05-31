@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/listFragment">
+
+    <fragment
+        android:id="@+id/todayFragment"
+        android:name="com.example.abay.today.TodayFragment"
+        android:label="TodayFragment" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.abay.settings.SettingsFragment"
+        android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.abay.favorites.FavoritesFragment"
+        android:label="FavoritesFragment" />
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.example.abay.list.ListFragment"
+        android:label="ListFragment" />
+</navigation>

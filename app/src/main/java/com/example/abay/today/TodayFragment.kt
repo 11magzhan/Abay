@@ -5,17 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import com.example.abay.R
+import com.example.abay.database.QaraSoz
 import com.example.abay.databinding.FragmentTodayBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class TodayFragment: Fragment() {
-
+@AndroidEntryPoint
+class TodayFragment : Fragment() {
+    private val viewModel: TodayViewModel by viewModels()
     private lateinit var binding: FragmentTodayBinding
-    private lateinit var viewModel: TodayViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentTodayBinding.inflate(inflater, container, false)
@@ -25,13 +27,31 @@ class TodayFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val application = requireNotNull(this.activity).application
-        val factory = TodayViewModelFactory(application)
-        viewModel = ViewModelProvider(this, factory).get(TodayViewModel::class.java)
+        val qaraSozId = arguments?.getLong("qaraSozId")
 
-        viewModel.randomQaraSoz.observe(viewLifecycleOwner) { qaraSoz ->
-            binding.tvTitle.text = qaraSoz.title
-            binding.tvText.text = qaraSoz.text
+        if (qaraSozId != null && qaraSozId != 0L) {
+            viewModel.getQaraSozById(qaraSozId)
+        } else {
+            viewModel.getRandomQaraSoz()
         }
+
+        viewModel.currentQaraSoz.observe(viewLifecycleOwner) { qaraSoz ->
+            displayQaraSoz(qaraSoz)
+        }
+
+        binding.btnFavorite.setOnClickListener {
+            viewModel.changeFavorite()
+        }
+    }
+
+    private fun displayQaraSoz(qaraSoz: QaraSoz?) {
+        binding.tvText.text = qaraSoz?.text
+        binding.tvTitle.text = qaraSoz?.title
+        val favoriteIcon = if (qaraSoz?.favorite == 1) {
+            R.drawable.ic_baseline_favorite_24
+        } else {
+            R.drawable.ic_baseline_favorite_border_24
+        }
+        binding.btnFavorite.setImageResource(favoriteIcon)
     }
 }

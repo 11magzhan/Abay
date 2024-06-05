@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/listFragment">
+    app:startDestination="@id/todayFragment">
 
     <fragment
         android:id="@+id/todayFragment"
         android:name="com.example.abay.today.TodayFragment"
-        android:label="TodayFragment" />
+        android:label="TodayFragment"
+        tools:layout="@layout/fragment_today">
+        <argument
+            android:name="qaraSozId"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.example.abay.list.ListFragment"
+        android:label="ListFragment" >
+        <action
+            android:id="@+id/action_listFragment_to_todayFragment"
+            app:destination="@id/todayFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.abay.settings.SettingsFragment"
@@ -15,9 +31,10 @@
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.example.abay.favorites.FavoritesFragment"
-        android:label="FavoritesFragment" />
-    <fragment
-        android:id="@+id/listFragment"
-        android:name="com.example.abay.list.ListFragment"
-        android:label="ListFragment" />
+        android:label="FavoritesFragment" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_todayFragment"
+            app:destination="@id/todayFragment" />
+    </fragment>
+
 </navigation>

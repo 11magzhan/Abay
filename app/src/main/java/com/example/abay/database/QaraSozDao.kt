@@ -28,4 +28,10 @@ interface QaraSozDao {
     @Query("SELECT * FROM qarasozder_table WHERE favorite = 1")
     fun getAllFavorites(): LiveData<List<QaraSoz>>
 
+    @Query("SELECT COUNT(*) FROM qarasozder_table")
+    suspend fun getCount(): Int
+
+    @Query("DELETE FROM qarasozder_table")
+    suspend fun deleteAll()
+
 }

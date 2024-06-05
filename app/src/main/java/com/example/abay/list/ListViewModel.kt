@@ -5,22 +5,20 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.abay.database.QaraSoz
-import com.example.abay.database.QaraSozDatabase
-import com.example.abay.network.Api
 import com.example.abay.repository.Repository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ListViewModel(application: Application) : AndroidViewModel(application) {
-
+@HiltViewModel
+class ListViewModel @Inject constructor(
+    application: Application,
     private val repository: Repository
-    val qaraSozList: LiveData<List<QaraSoz>>
+) : AndroidViewModel(application) {
+
+    val qaraSozList: LiveData<List<QaraSoz>> = repository.getAllQaraSoz()
 
     init {
-        val qaraSozDao = QaraSozDatabase.getDatabase(application).qaraSozDao()
-        val apiService = Api.retrofitService
-        repository = Repository(apiService, qaraSozDao)
-        qaraSozList = qaraSozDao.getAll()
-
         viewModelScope.launch {
             repository.refreshQaraSozder()
         }

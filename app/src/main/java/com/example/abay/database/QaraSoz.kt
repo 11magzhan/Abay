@@ -16,7 +16,7 @@ data class QaraSoz(
     var text: String = "",
 
     @ColumnInfo(name = "favorite")
-    var favorite: Int = 0,
+    var favorite: Int = 0,   // 0 - not favorite, 1 - favorite
 
     @ColumnInfo(name = "number")
     var number: Long

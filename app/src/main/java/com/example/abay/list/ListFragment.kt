@@ -6,16 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.abay.database.QaraSoz
 import com.example.abay.databinding.FragmentListBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class ListFragment: Fragment() {
+@AndroidEntryPoint
+class ListFragment : Fragment() {
 
     private lateinit var binding: FragmentListBinding
-    private lateinit var viewModel: ListViewModel
+    private val viewModel: ListViewModel by viewModels()
     private val adapter by lazy {
         RecyclerAdapter(
             onItemClick = ::navigateToDetails
@@ -23,7 +25,8 @@ class ListFragment: Fragment() {
     }
 
     private fun navigateToDetails(qaraSoz: QaraSoz) {
-        TODO("Not yet implemented")
+        val action = qaraSoz.id?.let { ListFragmentDirections.actionListFragmentToTodayFragment(it) }
+        action?.let { findNavController().navigate(it) }
     }
 
     override fun onCreateView(
@@ -37,19 +40,11 @@ class ListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // Initialize ViewModel
-        val application = requireNotNull(this.activity).application
-        val factory = ListViewModelFactory(application)
-        viewModel = ViewModelProvider(this, factory).get(ListViewModel::class.java)
-
-        // Set up RecyclerView
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
 
-        // Observe LiveData
-        viewModel.qaraSozList.observe(viewLifecycleOwner, Observer { qaraSozList ->
+        viewModel.qaraSozList.observe(viewLifecycleOwner){ qaraSozList ->
             adapter.submitList(qaraSozList)
-        })
+        }
     }
 }

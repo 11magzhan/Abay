@@ -24,4 +24,4 @@ class MainActivity : AppCompatActivity() {
 
         setupWithNavController(binding.bottomNavigationView, navController)
     }
-} // todo splash screen
+}

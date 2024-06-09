@@ -25,8 +25,8 @@ class ListFragment : Fragment() {
     }
 
     private fun navigateToDetails(qaraSoz: QaraSoz) {
-        val action = qaraSoz.id?.let { ListFragmentDirections.actionListFragmentToTodayFragment(it) }
-        action?.let { findNavController().navigate(it) }
+        val action = ListFragmentDirections.actionListFragmentToTodayFragment(qaraSoz.id)
+        findNavController().navigate(action)
     }
 
     override fun onCreateView(

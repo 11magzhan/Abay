@@ -13,7 +13,7 @@
         android:icon="@drawable/ic_baseline_favorite_24"
         android:title="fav" />
     <item
-        android:id="@+id/settingsFragment"
+        android:id="@+id/settingsActivity"
         android:icon="@drawable/ic_baseline_settings_24"
         android:title="Settings" />
 </menu>

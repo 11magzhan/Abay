@@ -67,6 +67,8 @@ dependencies {
     implementation ("androidx.work:work-runtime-ktx:2.9.0")
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.preference)
+    implementation(libs.androidx.preference.ktx)
 
     val room_version = "2.6.1"
     // optional - Kotlin Extensions and Coroutines support for Room

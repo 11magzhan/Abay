@@ -1,3 +1,4 @@
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -6,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.abay.database.QaraSoz
 import com.example.abay.databinding.CardItemBinding
 import com.example.abay.databinding.HeaderItemBinding
+import com.squareup.picasso.Picasso
 
 class RecyclerAdapter(
     private val onItemClick: (QaraSoz) -> Unit
@@ -48,7 +50,9 @@ class RecyclerAdapter(
             onItemClick: (QaraSoz) -> Unit
         ) = with(binding) {
             itemTitle.text = item.title
-            //todo image
+            Picasso.get()
+                .load("https://adebiportal.kz/storage/tmp/resize/authors/1200_0_9a092c56b344b668be791a0edfa540e6.jpg")
+                .into(itemImage)
             root.setOnClickListener {
                 onItemClick(item)
             }

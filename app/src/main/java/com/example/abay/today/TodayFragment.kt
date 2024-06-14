@@ -1,5 +1,6 @@
 package com.example.abay.today
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,6 +43,17 @@ class TodayFragment : Fragment() {
         binding.btnFavorite.setOnClickListener {
             viewModel.changeFavorite()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateLayoutVisibility()
+    }
+
+    private fun updateLayoutVisibility() {
+        val sharedPrefs = requireActivity().getSharedPreferences("settings_prefs", Context.MODE_PRIVATE)
+        val showLayout = sharedPrefs.getBoolean("show_layout", false)
+        binding.settingsLl.visibility = if (showLayout) View.VISIBLE else View.GONE
     }
 
     private fun displayQaraSoz(qaraSoz: QaraSoz?) {

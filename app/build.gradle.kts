@@ -52,7 +52,7 @@ dependencies {
 
     implementation ("androidx.fragment:fragment-ktx:1.7.1")
 
-
+    implementation ("com.squareup.picasso:picasso:2.8")
     //Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-moshi:2.9.0")

@@ -1,8 +1,7 @@
 package com.example.abay.list
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.abay.database.QaraSoz
 import com.example.abay.repository.Repository
@@ -12,9 +11,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ListViewModel @Inject constructor(
-    application: Application,
     private val repository: Repository
-) : AndroidViewModel(application) {
+) : ViewModel() {
 
     val qaraSozList: LiveData<List<QaraSoz>> = repository.getAllQaraSoz()
 
